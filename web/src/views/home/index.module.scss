@@ -1,0 +1,42 @@
+.homeContainer {
+  display: flex;
+  gap: vw(16);
+  .left {
+    width: vw(300);
+    background: #fff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: vh(24) vw(12);
+    .times {
+    }
+  }
+  .middle {
+    background: #fff;
+    flex: 1;
+    width: 0;
+    padding: vh(24) vw(12);
+    border-radius: 8px;
+  }
+  .right {
+    width: vw(300);
+    background: #fff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: vh(24) vw(12);
+  }
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  &::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0070cc;
+    display: inline-block;
+    margin-right: 4px;
+    margin-bottom: 6px;
+  }
+}

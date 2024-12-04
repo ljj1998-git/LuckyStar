@@ -2,6 +2,8 @@ import { ConstantsProvider } from '@/constants/constants.provider';
 import { AuthDao } from '@/dao/auth.dao';
 import { Injectable } from '@nestjs/common';
 import { Enforcer, newEnforcer } from 'casbin';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const PDFParser = require('pdf2json');
 
 @Injectable()
 export class AuthService {
@@ -18,6 +20,19 @@ export class AuthService {
   ): Promise<any> {
     // 初始化 casbin规则
     await this.initCasbin();
+    console.log(PDFParser);
+
+    const pdfParser = new PDFParser();
+
+    pdfParser.on('pdfParser_dataReady', (pdfData) => {
+      const textContent = pdfData.Pages.map((page) =>
+        page.Texts.map((t) => decodeURIComponent(t.R[0].T)).join(' '),
+      ).join('\n');
+      console.log(textContent);
+    });
+    pdfParser.loadPDF('src/service/demo1.pdf').then((res) => {
+      console.log(res);
+    });
 
     const res = await this.enforcerIns.enforce(user, resource, action);
     if (res) {

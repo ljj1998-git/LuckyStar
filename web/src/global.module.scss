@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "kt"; /* 自定义字体名称 */
+  src: url("./assets/fonts/楷体.ttf") format("woff2"),
+    /* 现代浏览器 */ url("./assets/fonts/楷体.ttf") format("woff"),
+    /* 旧版浏览器 */ url("./assets/fonts/楷体.ttf") format("truetype"); /* 系统字体 */
+  font-weight: normal; /* 字体粗细 */
+  font-style: normal; /* 字体样式 */
+}
+
+:global(body) {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #efefef;
+}
+:global(html) {
+  width: 100%;
+  height: 100%;
+}
+:global(#root) {
+  width: 100%;
+  height: 100%;
+  font-family: "kt";
+}
+
+:global {
+  .ant-menu {
+    border: none !important;
+  }
+}
