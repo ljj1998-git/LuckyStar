@@ -13,10 +13,13 @@ type Config = {
       password: string;
     };
   };
+  jwt: {
+    secret: string;
+  };
 };
 
 const configYmalPath = 'src/config/config.yaml';
-const config: Config = yaml.load(readFileSync(configYmalPath, 'utf8'));
+export const config: Config = yaml.load(readFileSync(configYmalPath, 'utf8'));
 /** 导入config.yaml配置文件  */
 const initConfig = () => {
   const configYmal = () => {
@@ -40,6 +43,7 @@ const initDBConfig = () => {
     entities: [__dirname + '/../entities/**/*.entity{.ts,.js}'],
     // 仅在开发中使用，生产环境请设置为 false
     synchronize: true,
+    dateStrings: true,
   });
 };
 

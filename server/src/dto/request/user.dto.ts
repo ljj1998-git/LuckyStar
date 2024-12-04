@@ -8,7 +8,7 @@ export class RegisterDto {
   password: string;
 
   // @IsPhoneNumber()
-  mobile: number;
+  mobile: string;
 }
 
 export class LoginDto {
@@ -19,5 +19,5 @@ export class LoginDto {
   password: string;
 
   // @IsPhoneNumber()
-  mobile: number;
+  mobile: string;
 }

@@ -27,7 +27,7 @@ export default function Home() {
         <div className={styles.times}>
           <Flex vertical={true} gap={24}>
             <Space>
-              <span className={styles.title}>考试时间提醒</span>
+              <span className={styles.title}>1233</span>
             </Space>
             <Timeline
               items={[

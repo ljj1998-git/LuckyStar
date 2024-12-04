@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 import { BaseEntity } from './common.entity';
 
-@Entity('users')
+@Entity('sys_users')
 export class UserEntity extends BaseEntity {
   @PrimaryColumn()
   id: number;
