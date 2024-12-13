@@ -18,7 +18,11 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/*": ["src/*"] // 使用 @ 符号代替 src
+      "@/*": ["src/*"],
+      "@app/modules/system/department": ["libs/modules/system/department/src"],
+      "@app/modules/system/department/*": [
+        "libs/modules/system/department/src/*"
+      ]
     }
   },
   "include": ["src/**/*.ts", "src/config/*.yaml"]

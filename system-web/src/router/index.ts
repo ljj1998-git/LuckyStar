@@ -1,37 +1,41 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import NProgress from 'nprogress'; // progress bar
-import 'nprogress/nprogress.css';
-
-import { appRoutes } from './routes';
-import { REDIRECT_MAIN, NOT_FOUND_ROUTE } from './routes/base';
-import createRouteGuard from './guard';
-
-NProgress.configure({ showSpinner: false }); // NProgress Configuration
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      redirect: 'login',
-    },
     {
       path: '/login',
       name: 'login',
       component: () => import('@/views/login/index.vue'),
-      meta: {
-        requiresAuth: false,
-      },
     },
-    ...appRoutes,
-    REDIRECT_MAIN,
-    NOT_FOUND_ROUTE,
+    {
+      path: '/system',
+      name: 'system',
+      component: () => import('@/layout/LayoutDefault.vue'),
+      children: [
+        {
+          path: 'user',
+          name: 'user',
+          component: () => import('@/views/system/user/index.vue'),
+        },
+        {
+          path: 'role',
+          name: 'role',
+          component: () => import('@/views/system/role/index.vue'),
+        },
+        {
+          path: 'menu',
+          name: 'menu',
+          component: () => import('@/views/system/menu/index.vue'),
+        },
+        {
+          path: 'department',
+          name: 'department',
+          component: () => import('@/views/system/department/index.vue'),
+        },
+      ],
+    },
   ],
-  scrollBehavior() {
-    return { top: 0 };
-  },
-});
+})
 
-createRouteGuard(router);
-
-export default router;
+export default router
