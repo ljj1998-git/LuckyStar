@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: zhuhai;
+    src: url("src/assets/fonts/dingliezhuhaifont-20240831GengXinBan)-2.ttf")
+      format("truetype");
+  }
+}
+
+@layer utilities {
+  /* 隐藏 Chrome, Safari 和 Opera 的滚动条 */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* 隐藏 IE, Edge 和 Firefox 的滚动条 */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE 和 Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .hover-gradient {
+    color: #3d3d3d; /* 渐变颜色 */
+    transition: color 0.3s; /* 动效 */
+  }
+
+  .hover-gradient:hover {
+    color: #4f5cf0; /* 悬停时变颜色 */
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 12px 0;
+    display: inline-block;
+    &::before {
+      content: "";
+      width: 4px;
+      height: 20px;
+      background: #0070cc;
+      display: inline-block;
+      margin-right: 4px;
+      position: relative;
+      top: 4px;
+    }
+  }
+}

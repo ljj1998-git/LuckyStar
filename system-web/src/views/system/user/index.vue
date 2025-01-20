@@ -30,7 +30,7 @@
     <a-divider />
     <a-row :gutter="[20, 20]">
       <a-col :span="5">
-        <DepartmentTree />
+        <DepartmentTree ref="DepartmentTreeRef" @node-click="handleTreeClick" />
       </a-col>
       <a-col :span="19">
         <a-col :span="24">
@@ -46,6 +46,12 @@
             row-key="id"
             :data="userList"
           >
+            <template #sex="{ record }">
+              <GiCellGender :gender="record.sex" />
+            </template>
+            <template #roles="{ record }">
+              <GiCellTags :data="record.roles.map((role: any) => role.name)" />
+            </template>
             <template #createdAt="{ record }">
               {{ useFilterTime(record.createdAt) }}
             </template>
@@ -54,6 +60,7 @@
             </template>
             <template #optional="{ record }">
               <a-link @click="handleEdit(record)">编辑</a-link>
+              <a-link @click="handleAssignRole(record)">分配角色</a-link>
               <a-link status="danger" v-if="!record.children" @click="handleDelete(record.id)">
                 删除
               </a-link>
@@ -63,7 +70,8 @@
       </a-col>
     </a-row>
   </div>
-  <AddUserDrawer ref="AddUserDrawerRef" />
+  <AddUserDrawer ref="AddUserDrawerRef" @ok="handleSearch" />
+  <RoleAssignModal ref="RoleAssignModalRef" @ok="handleSearch" />
 </template>
 
 <script lang="ts" setup>
@@ -71,9 +79,11 @@ import { Message, Modal, type TableColumnData } from '@arco-design/web-vue'
 import { useFilterTime } from '@/hooks/useFilterTime'
 import DepartmentTree from './components/DepartmentTree.vue'
 import AddUserDrawer from './components/AddUserDrawer.vue'
+import RoleAssignModal from './components/RoleAssignModal.vue'
 
 import { useUserStore } from '@/stores'
 import { Pagination } from '@/utils/useClass'
+import { deleteUserApi } from '@/apis/system/user'
 
 const { getUserList } = useUserStore()
 const { userList } = storeToRefs(useUserStore())
@@ -89,6 +99,20 @@ const columns: TableColumnData[] = [
     dataIndex: 'mobile',
   },
   {
+    title: '性别',
+    dataIndex: 'sex',
+    slotName: 'sex',
+  },
+  {
+    title: '所属部门',
+    dataIndex: 'department.name',
+  },
+  {
+    title: '角色',
+    dataIndex: 'roles',
+    slotName: 'roles',
+  },
+  {
     title: '创建时间',
     slotName: 'createdAt',
     dataIndex: 'createdAt',
@@ -101,12 +125,17 @@ const columns: TableColumnData[] = [
   {
     title: '操作',
     slotName: 'optional',
-    width: 160,
+    width: 200,
     align: 'center',
     fixed: 'right',
   },
 ]
 const tableLoading = ref(false)
+
+const handleTreeClick = (key: number[]) => {
+  form.value.departmentId = key[0] == 0 ? undefined : key[0]
+  handleSearch()
+}
 
 const handleSearch = async () => {
   try {
@@ -128,6 +157,7 @@ handleSearch()
 /** @description 重置 */
 const handleReset = () => {
   form.value = {}
+  DepartmentTreeRef.value?.reset()
   handleSearch()
 }
 
@@ -144,20 +174,28 @@ const handleEdit = (record: any) => {
   AddUserDrawerRef.value?.onUpdate(record.id)
 }
 
+/** @des 角色分配 */
+const handleAssignRole = (record: any) => {
+  RoleAssignModalRef.value?.onOpen(record.id)
+}
+
 const handleDelete = (id: number) => {
   Modal.confirm({
     title: '确认删除',
-    content: '确认删除该部门吗？',
+    content: '确认删除该用户吗？',
     onOk: async () => {
       try {
-        await deleteDepartment(id)
+        await deleteUserApi({ ids: [id] })
         Message.success('删除成功')
+        handleSearch()
       } catch {}
     },
   })
 }
 
 const AddUserDrawerRef = ref<InstanceType<typeof AddUserDrawer>>()
+const RoleAssignModalRef = ref<InstanceType<typeof RoleAssignModal>>()
+const DepartmentTreeRef = ref<InstanceType<typeof DepartmentTree>>()
 </script>
 
 <style lang="less" scoped>

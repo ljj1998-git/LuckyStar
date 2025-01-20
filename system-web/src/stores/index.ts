@@ -5,10 +5,11 @@ import useAuthStore from './modules/auth'
 import useDepartmentStore from './modules/system/department'
 import useUserStore from './modules/system/user'
 import useMenuStore from './modules/system/menu'
+import useRoleStore from './modules/system/role'
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 export default pinia
 
-export { useAppStore, useAuthStore, useDepartmentStore, useUserStore, useMenuStore }
+export { useAppStore, useAuthStore, useDepartmentStore, useUserStore, useMenuStore, useRoleStore }

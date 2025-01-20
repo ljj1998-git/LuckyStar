@@ -7,9 +7,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AAlert: typeof import('@arco-design/web-vue')['Alert']
     AAvatar: typeof import('@arco-design/web-vue')['Avatar']
     ABadge: typeof import('@arco-design/web-vue')['Badge']
     AButton: typeof import('@arco-design/web-vue')['Button']
+    ACard: typeof import('@arco-design/web-vue')['Card']
     ACheckbox: typeof import('@arco-design/web-vue')['Checkbox']
     ACol: typeof import('@arco-design/web-vue')['Col']
     ADivider: typeof import('@arco-design/web-vue')['Divider']
@@ -23,6 +25,7 @@ declare module 'vue' {
     AInput: typeof import('@arco-design/web-vue')['Input']
     AInputNumber: typeof import('@arco-design/web-vue')['InputNumber']
     AInputPassword: typeof import('@arco-design/web-vue')['InputPassword']
+    AInputSearch: typeof import('@arco-design/web-vue')['InputSearch']
     ALayout: typeof import('@arco-design/web-vue')['Layout']
     ALayoutContent: typeof import('@arco-design/web-vue')['LayoutContent']
     ALayoutHeader: typeof import('@arco-design/web-vue')['LayoutHeader']
@@ -32,6 +35,7 @@ declare module 'vue' {
     AMenuItem: typeof import('@arco-design/web-vue')['MenuItem']
     AModal: typeof import('@arco-design/web-vue')['Modal']
     AOption: typeof import('@arco-design/web-vue')['Option']
+    AOverflowList: typeof import('@arco-design/web-vue')['OverflowList']
     APagination: typeof import('@arco-design/web-vue')['Pagination']
     APopover: typeof import('@arco-design/web-vue')['Popover']
     ARadio: typeof import('@arco-design/web-vue')['Radio']
@@ -55,6 +59,8 @@ declare module 'vue' {
     ATreeSelect: typeof import('@arco-design/web-vue')['TreeSelect']
     ATypographyParagraph: typeof import('@arco-design/web-vue')['TypographyParagraph']
     GiCekkStatus: typeof import('./../src/components/GiCekkStatus/index.vue')['default']
+    GiCellGender: typeof import('./../src/components/GiCellGender/index.vue')['default']
+    GiCellTags: typeof import('./../src/components/GiCellTags/index.vue')['default']
     GiIconSelector: typeof import('./../src/components/GiIconSelector/index.vue')['default']
     GiSvgIcon: typeof import('./../src/components/GiSvgIcon/index.vue')['default']
     GiThemeBtn: typeof import('./../src/components/GiThemeBtn/index.vue')['default']
@@ -67,6 +73,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheWelcome: typeof import('./../src/components/TheWelcome.vue')['default']
+    UserSelect: typeof import('./../src/components/UserSelect/index.vue')['default']
     WelcomeItem: typeof import('./../src/components/WelcomeItem.vue')['default']
   }
 }

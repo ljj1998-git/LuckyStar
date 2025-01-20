@@ -16,10 +16,10 @@
     <a-form ref="formRef" :model="form" :rules="rules" size="large" auto-label-width>
       <fieldset v-show="current === 1">
         <a-form-item label="名称" field="name">
-          <a-input v-model.trim="form.name" placeholder="请输入名称" />
+          <a-input v-model="form.name" placeholder="请输入名称" />
         </a-form-item>
         <a-form-item label="编码" field="code">
-          <a-input v-model.trim="form.code" placeholder="请输入编码" />
+          <a-input v-model="form.code" placeholder="请输入编码" />
         </a-form-item>
         <a-form-item label="排序" field="sort">
           <a-input-number v-model="form.sort" placeholder="请输入排序" :min="1" mode="button" />
@@ -48,8 +48,9 @@
               ref="menuTreeRef"
               v-model:checked-keys="form.menuIds"
               class="w-full"
-              :data="menuList"
-              :default-expand-all="isMenuExpanded"
+              :data="menuTree"
+              default-expand-all
+              :field-names="{ key: 'id', title: 'name', icon: 'icons' }"
               :check-strictly="!form.menuCheckStrictly"
               :virtual-list-props="{ height: 400 }"
               checkable
@@ -79,7 +80,8 @@
               ref="deptTreeRef"
               v-model:checked-keys="form.deptIds"
               class="w-full"
-              :data="deptList"
+              :field-names="{ key: 'id', title: 'name' }"
+              :data="departmentTree"
               :default-expand-all="isDeptExpanded"
               :check-strictly="!form.deptCheckStrictly"
               :virtual-list-props="{ height: 350 }"
@@ -108,6 +110,25 @@
 <script setup lang="ts">
 import { type FormInstance, Message, type TreeNodeData } from '@arco-design/web-vue'
 import { useWindowSize } from '@vueuse/core'
+
+import { useMenuStore, useDepartmentStore } from '@/stores'
+import { createRoleApi } from '@/apis/system/role'
+const { getDepartmentTree } = useDepartmentStore()
+const { departmentTree } = storeToRefs(useDepartmentStore())
+getDepartmentTree()
+
+const { getMenuTree } = useMenuStore()
+const { menuTree } = storeToRefs(useMenuStore())
+
+getMenuTree()
+
+const data_scope_enum = [
+  { label: '全部数据权限', value: 1 },
+  { label: '本部门及以下数据权限', value: 2 },
+  { label: '本部门数据权限', value: 3 },
+  { label: '仅本人数据权限', value: 4 },
+  { label: '自定义数据权限', value: 5 },
+]
 
 const emit = defineEmits<{
   (e: 'save-success'): void
@@ -195,7 +216,7 @@ const getDeptAllCheckedKeys = () => {
 }
 
 // 操作树
-const handleTreeAction = (type, action) => {
+const handleTreeAction = (type: string, action: string) => {
   const refMap = {
     menu: menuTreeRef,
     dept: deptTreeRef,
@@ -216,12 +237,17 @@ const onCheckAll = (type) => handleTreeAction(type, 'check')
 const save = async () => {
   try {
     const isInvalid = await formRef.value?.validate()
-    if (isInvalid) return false
-    form.menuIds = getMenuAllCheckedKeys()
-    form.deptIds = getDeptAllCheckedKeys()
-    await addRole(form)
+    console.log(form.value)
+
+    await createRoleApi(form.value)
     Message.success('新增成功')
-    emit('save-success')
+
+    // if (isInvalid) return false
+    // form.menuIds = getMenuAllCheckedKeys()
+    // form.deptIds = getDeptAllCheckedKeys()
+    // await addRole(form)
+    // Message.success('新增成功')
+    // emit('save-success')
     return true
   } catch (error) {
     return false
@@ -232,7 +258,7 @@ const save = async () => {
 const onClickOk = () => {
   if (unref(current) === 3) {
     save()
-    visible.value = false
+    // visible.value = false
   }
 }
 

@@ -10,6 +10,7 @@ const useDepartmentStore = defineStore('department', {
       try {
         const res = await getDepartmentTreeApi(params)
         this.departmentTree = res.data
+        this.departmentTree.unshift({ id: 0, name: '全部', parentId: -1, children: [] })
       } catch {
         this.departmentTree = []
       }

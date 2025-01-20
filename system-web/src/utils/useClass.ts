@@ -14,7 +14,7 @@ export class Pagination {
   /** 是否显示分页器 */
   showSizeChanger: boolean
   /** 是否显示快速跳转 */
-  showQuickJumper: boolean
+  showJumper: boolean
   /** 页码改变回调 */
   onChange: any
   constructor(seachFuc: Function) {
@@ -24,7 +24,7 @@ export class Pagination {
     this.total = 0
     this.pageSizeOptions = ['5', '10', '20', '50', '100']
     this.showSizeChanger = true
-    this.showQuickJumper = true
+    this.showJumper = true
     this.onChange = this.pageChange.bind(this)
   }
   /** 分页方法 */

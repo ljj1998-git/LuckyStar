@@ -18,11 +18,11 @@ interface IDepartmentTree {
   /**
    * 子部门
    */
-  children: IDepartmentTree[]
+  children?: IDepartmentTree[]
   /**
    * 部门描述
    */
-  description: string
+  description?: string
   /**
    * 部门id
    */
@@ -38,9 +38,9 @@ interface IDepartmentTree {
   /**
    * 排序
    */
-  sort: number
+  sort?: number
   /**
    * 状态 1:启用 0:禁用
    */
-  status: boolean
+  status?: boolean
 }

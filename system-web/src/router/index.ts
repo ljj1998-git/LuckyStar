@@ -35,6 +35,29 @@ const router = createRouter({
         },
       ],
     },
+    // 门户网站
+    {
+      path: '/portal',
+      name: 'portal',
+      component: () => import('@/layout/LayoutDefault.vue'),
+      children: [
+        {
+          path: 'subject',
+          name: 'subject',
+          component: () => import('@/views/portal/subject/index.vue'),
+        },
+        {
+          path: 'topic',
+          name: 'topic',
+          component: () => import('@/views/portal/topic/index.vue'),
+        },
+        {
+          path: 'personalization',
+          name: 'personalization',
+          component: () => import('@/views/portal/personalization/index.vue'),
+        },
+      ],
+    },
   ],
 })
 

@@ -5,7 +5,7 @@
       <div class="h-[calc(100vh-64px)] w-[280px]">
         <Sidebar />
       </div>
-      <div class="scrollable-content w-full h-[calc(100vh-64px)] p-4 overflow-y-auto">
+      <div class="flex-1 w-0 scrollable-content h-[calc(100vh-64px)] p-4 overflow-y-auto">
         <RouterView></RouterView>
       </div>
     </div>

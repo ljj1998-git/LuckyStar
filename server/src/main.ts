@@ -6,8 +6,13 @@ import { HttpResponse } from '@/util/response.util';
 import * as session from 'express-session';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
+  const microserviceApp =
+    await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+      transport: Transport.TCP,
+    });
   const app = await NestFactory.create(AppModule);
   app.use(
     session({
@@ -34,6 +39,9 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   // 全局response处理
   app.useGlobalInterceptors(new HttpResponse());
+
+  // 微服务
+  await microserviceApp.listen();
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

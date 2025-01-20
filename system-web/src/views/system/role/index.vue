@@ -40,13 +40,10 @@
           :pagenation="pagenation"
           :loading="tableLoading"
           row-key="id"
-          :data="userList"
+          :data="roleList"
         >
           <template #createdAt="{ record }">
             {{ useFilterTime(record.createdAt) }}
-          </template>
-          <template #status="{ record }">
-            <GiCekkStatus :status="record.status" />
           </template>
           <template #optional="{ record }">
             <a-link @click="handleEdit(record)">编辑</a-link>
@@ -64,12 +61,13 @@
 <script lang="ts" setup>
 import { Message, Modal, type TableColumnData } from '@arco-design/web-vue'
 import { useFilterTime } from '@/hooks/useFilterTime'
-import { useUserStore } from '@/stores'
+import { useRoleStore } from '@/stores'
 import { Pagination } from '@/utils/useClass'
 import AddRoleDrawer from './components/AddRoleModal.vue'
+import { getRoleListApi } from '@/apis/system/role'
 
-const { getUserList } = useUserStore()
-const { userList } = storeToRefs(useUserStore())
+const { getRoleList } = useRoleStore()
+const { roleList } = storeToRefs(useRoleStore())
 
 const form = ref<ISearchRoleParams>({})
 const columns: TableColumnData[] = [
@@ -78,8 +76,8 @@ const columns: TableColumnData[] = [
     dataIndex: 'name',
   },
   {
-    title: '手机号',
-    dataIndex: 'mobile',
+    title: '编码',
+    dataIndex: 'code',
   },
   {
     title: '创建时间',
@@ -87,9 +85,8 @@ const columns: TableColumnData[] = [
     dataIndex: 'createdAt',
   },
   {
-    title: '状态',
-    slotName: 'status',
-    dataIndex: 'status',
+    title: '描述',
+    dataIndex: 'description',
   },
   {
     title: '操作',
@@ -104,7 +101,7 @@ const tableLoading = ref(false)
 const handleSearch = async () => {
   try {
     tableLoading.value = true
-    await getUserList({
+    await getRoleList({
       ...form.value,
       pageNum: pagenation.current,
       pageSize: pagenation.pageSize,

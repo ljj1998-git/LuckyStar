@@ -1,0 +1,16 @@
+syntax = "proto3";
+package system_user;
+
+service SystemUserService {
+  rpc Register (HeroById) returns (null1) {}
+}
+
+message HeroById {
+  // string username = 1;
+  // string password = 1;
+
+}
+
+message null1 {
+
+}

@@ -7,10 +7,18 @@ import { UserModule } from '@/modules/system/user/user.module';
 import { SysMenuModule } from '@/modules/system/menu/menu.module';
 import { LoggerMiddleware } from '@/middleware/logger.middleware';
 import { DepartmentModule } from './modules/system/department/department.module';
+import { RoleModule } from './modules/system/role/role.module';
 
 @Global()
 @Module({
-  imports: [...config, AuthModule, UserModule, SysMenuModule, DepartmentModule],
+  imports: [
+    ...config,
+    AuthModule,
+    UserModule,
+    SysMenuModule,
+    DepartmentModule,
+    RoleModule,
+  ],
   controllers: [],
   providers: [ConstantsProvider],
   exports: [ConstantsProvider],

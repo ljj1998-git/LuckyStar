@@ -16,6 +16,13 @@
         <a-menu-item key="/system/role">角色管理</a-menu-item>
         <a-menu-item key="/system/department">部门管理</a-menu-item>
       </a-sub-menu>
+      <a-sub-menu key="1">
+        <template #icon><icon-apps></icon-apps></template>
+        <template #title>门户管理</template>
+        <a-menu-item key="/portal/subject">科目管理</a-menu-item>
+        <a-menu-item key="/portal/topic">题库管理</a-menu-item>
+        <a-menu-item key="/portal/personalization">个性化管理</a-menu-item>
+      </a-sub-menu>
     </a-menu>
   </div>
 </template>

@@ -1,0 +1,10 @@
+jwt:
+  secret: 'lucky'
+  expiration: 6000
+crypto:
+  algorithm: 'sha256'
+  salt: 'lucky'
+  secret: 'lucky'
+  hex:
+    key: 'U6KXl21KHL6D1H9X'
+    iv: '0102030405060708'

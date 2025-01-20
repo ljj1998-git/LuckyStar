@@ -82,6 +82,14 @@ const treeData = computed(() => {
   return search(searchKey.value.toLowerCase())
 })
 
+const reset = () => {
+  selectedKeys.value = [0]
+}
+
+defineExpose({
+  reset,
+})
+
 // onMounted(() => {
 //   getDeptList()
 // })

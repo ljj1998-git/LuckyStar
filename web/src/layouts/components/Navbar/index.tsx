@@ -3,11 +3,11 @@ import styles from "./index.module.scss";
 import {
   Avatar,
   Input,
-  Menu,
   MenuProps,
   Select,
   SelectProps,
   Space,
+  Image,
 } from "antd";
 import {
   AppstoreOutlined,
@@ -15,6 +15,7 @@ import {
   SearchOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import Menu from "./components/Menu";
 
 type MenuItem = Required<MenuProps>["items"][number];
 const items: MenuItem[] = [
@@ -94,12 +95,14 @@ const SearchInput: React.FC<{
   );
 };
 
+import Logo from "@/assets/images/logo.svg";
+
 const Navbar: React.FC = () => {
   return (
     <div className={styles.content}>
-      <div className={styles.logo} />
+      <Image width={200} src={Logo} height={64} preview={false} />
       <div className={styles.right}>
-        <Menu mode="horizontal" items={items} />
+        <Menu />
         <div className={styles.btns}>
           <Space>
             <SearchInput placeholder="选择类型" style={{ width: 100 }} />
